@@ -1,4 +1,4 @@
-Copyright (c) 2013 Interactive Gaming Enterprises Pty Ltd
+Copyright (c) 2013 Interactive Gaming Entertainment Pty Ltd
 
 MIT License
 
