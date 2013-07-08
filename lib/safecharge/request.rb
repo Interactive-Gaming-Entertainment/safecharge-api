@@ -103,6 +103,25 @@ module Safecharge
       return result
     end
 
+    def parameters=(params)
+      default_params = self.params;
+      all_params = default_params.merge(params)
+      self.validate_parameters(all_params)
+
+      # Save parameters as they were
+      self.params = all_params;
+
+      # Update request URLs from the new parameters
+      self.url_raw = self.build
+      self.url    = self.build(true)
+    end
+
+    def validate_parameters(params)
+      self.validate_fields(params)
+      self.validate_no_extra_fields(params)
+      self.validate_card_number(params)
+    end
+
     def validate_fields(params)
       transaction_type = params['sg_TransType']
       # Check for all required fields and formats
