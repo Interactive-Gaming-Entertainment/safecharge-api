@@ -103,6 +103,46 @@ module Safecharge
       return result
     end
 
+    def validate_fields(params)
+      transaction_type = params['sg_TransType']
+      # Check for all required fields and formats
+      self.TRANSACTION_FIELDS.each do |field|
+        required = false
+
+        if transaction_type.include?(field['required'])
+          required = true 
+        elsif field['required'] === true
+          required = true
+        end
+
+        # Check that all required parameters are present
+        if required && !params.keys.include?(field['name'])
+          raise ValidationException, "Parameter [#{field['name']}] is required, but not specified"
+        end
+
+        # Check that the format is more or less correct
+        if !params[ field['name']].empty? && params[ field['name'] ].size > field['size']
+          raise ValidationException, sprintf("Value [%s] in field [%s] is over the size limit [%s]", params[ field['name'] ], field['name'], field['size'])
+        end
+
+        if !params[ field['name'] ].empty?
+          # Check the type of the value
+          correct_type = false
+          case field['type']
+            when 'string'
+              correct_type = typeof params[ field['name'] ] === 'string'
+            when 'numeric'
+              correct_type = typeof params[ $field['name'] ] === 'number'
+            when 'int'
+              correct_type = typeof params[ $field['name'] ] === 'integer'
+          end
+
+          if !correct_type
+            raise ValidationException, sprintf("Value [%s] in field [%s] is not of expected type [%s]", params[ field['name'] ], field['name'], field['type'])
+          end
+        end
+      end
+    end
     def validate_no_extra_fields(params)
       allowed_fields = []
       self.TRANSACTION_FIELDS.each {|field| allowed_fields << field['name'] }
