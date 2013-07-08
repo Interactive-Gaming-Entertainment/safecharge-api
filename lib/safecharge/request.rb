@@ -1,6 +1,7 @@
 #!/user/bin/env ruby
 #coding: utf-8
 
+require "safecharge"
 require "safecharge/constants"
 
 module Safecharge
@@ -73,8 +74,8 @@ module Safecharge
       Safecharge::Constants::REQUEST_TYPE_AVS
     ]
     
-    def initialize(settings = [], id = nil)
-      self.settings = settings
+    def initialize(settings = {}, id = nil)
+      self.settings = Safecharge::DEFAULT_SETTINGS.merge(settings)
       self.id = (id) ? id : generate_id
       self.params = default_params
     end
