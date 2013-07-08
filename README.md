@@ -2,6 +2,10 @@
 
 A simple Ruby wrapper for the SafeCharge payment API
 
+## Status
+
+This project is under active development right now, and not suitable for use.
+
 ## Installation
 
 Add this line to your application's Gemfile:
