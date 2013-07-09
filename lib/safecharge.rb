@@ -65,41 +65,41 @@ module Safecharge
   # define errors and exceptions.
   class SafechargeError < RuntimeError
   end
-	class InternalException < SafechargeError
+  class InternalException < SafechargeError
   end
-	class ValidationException < SafechargeError
+  class ValidationException < SafechargeError
   end
 
-	def self.request_url(params = {}, mode = 'test')
-		result = nil
-		url = ''
-		case mode
-		  when 'test'
-		    url = Safecharge::Constants::SERVER_TEST
-		  when 'live'
-		    url = Safecharge::Constants::SERVER_LIVE
+  def self.request_url(params = {}, mode = 'test')
+    result = nil
+    url = ''
+    case mode
+      when 'test'
+        url = Safecharge::Constants::SERVER_TEST
+      when 'live'
+        url = Safecharge::Constants::SERVER_LIVE
       else
         raise ArgumentError, "Invalid request mode #{mode}"
     end
 
-		begin
-			request = Safecharge::Request.new(url, params)
-			return request.full_url
+    begin
+      request = Safecharge::Request.new(url, params)
+      return request.full_url
 
-		rescue InternalException => e
-			puts "Caught Internal Exception: #{e.message}"
-		  puts e.backtrace
-			raise RuntimeError, "Internal server error. Please try again later."
+    rescue InternalException => e
+      puts "Caught Internal Exception: #{e.message}"
+      puts e.backtrace
+      raise RuntimeError, "Internal server error. Please try again later."
 
-		rescue ValidationException => e
-			puts "Caught Validation Exception: #{e.message}"
-		  puts e.backtrac
-			raise RuntimeError, "Validation error: #{e.message} Fix your data and retry."
+    rescue ValidationException => e
+      puts "Caught Validation Exception: #{e.message}"
+      puts e.backtrac
+      raise RuntimeError, "Validation error: #{e.message} Fix your data and retry."
 
-		rescue SafechargeError => e
-			puts "Caught General Safecharge Error: #{e.message}"
-		  puts e.backtrace
-			raise RuntimeError, "Undocumented Internal error: #{e.message}"
-		end
+    rescue SafechargeError => e
+      puts "Caught General Safecharge Error: #{e.message}"
+      puts e.backtrace
+      raise RuntimeError, "Undocumented Internal error: #{e.message}"
+    end
   end
 end
