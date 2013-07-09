@@ -4,6 +4,7 @@
 require "safecharge/version"
 require "safecharge/constants"
 require "safecharge/request"
+require "safecharge/response"
 
 # The Safecharge PPP system provides a simple means for merchants to integrate credit card
 # payments into their site, without worrying about having to capture their customers'
@@ -59,7 +60,9 @@ require "safecharge/request"
 #         which can be decoded into a valid Response object by your server.
 #
 #         response = Safecharge.parse_response
-
+#
+# todo: finish these docs
+#
 module Safecharge
 
   # define errors and exceptions.
@@ -70,6 +73,8 @@ module Safecharge
   class ValidationException < SafechargeError
   end
 
+  # module level method to get the redirection URL given some params.
+  # you must explicitly set the mode to 'live' to generate the production URL.
   def self.request_url(params = {}, mode = 'test')
     result = nil
     url = ''
@@ -93,7 +98,7 @@ module Safecharge
 
     rescue ValidationException => e
       puts "Caught Validation Exception: #{e.message}"
-      puts e.backtrac
+      puts e.backtrace
       raise RuntimeError, "Validation error: #{e.message} Fix your data and retry."
 
     rescue SafechargeError => e
