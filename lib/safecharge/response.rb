@@ -3,50 +3,56 @@
 
 require "safecharge"
 require "safecharge/constants"
-require "safecharge/request"
-require 'ox'
 
 module Safecharge
   class Response
-    attr_accessor :query_id, :request, :response
-        
-    def initialize(request = nil)
-      self.request = request
-      self.query_id = (self.request) ? self.request.id : nil
-      self.response = (self.request) ? self.request.response : nil
-      self.validate(self.response)
+    attr_accessor :params
+    
+    ALLOWED_FIELDS = [
+      'Status', 'totalAmount', 'TransactionID', 'ClientUniqueID', 'ErrCode',
+      'ExErrCode', 'AuthCode', 'Reason', 'Token', 'ReasonCode',
+      'advanceResponseChecksum', 'ECI',
+      'nameOnCard', 'currency', 
+      'total_discount', 'total_handling', 'total_shipping', 'total_tax',
+      'customData', 'merchant_unique_id', 'merchant_site_id',
+      'requestVersion', 'message', 'Error', 'PPP_TransactionID', 'UserID',
+      'ProductID', 'ppp_status', 'merchantLocale', 'unknownParameters', 'webMasterId'
+    ]
+
+    def initialize(incoming_encoded_params = nil)
+      self.params = self.decode(incoming_encoded_params)
     end
     
-	def validate(response)
-		response.trim!
-    raise ResponseException, "Empty response" if response.empty?
-
-    begin
-      xml = Ox.parse(response)
-
-    rescue => e
-      puts "caught error: #{e.message}"
-      puts e.backtrace.join('\n')
-      raise ResponseException, "Failed to validate XML response"
+    def decode(param_string)
+      #todo write this.
+      return {}
     end
-  end
-  
-  def parse(request)
-		data = nil
-		response = request.response.trim
-    self.query_id = request.id
-		self.validate response
+    
+    def self.code(err, exerr)
+      return Safecharge::Constants::APPROVED if err == 0 && exerr == 0
+      return Safecharge::Constants::DECLINED if err == -1 && exerr == 0
+      # pending? see p 22 of the spec
+      return Safecharge::Constants::ERROR if err == -1100 && exerr > 0
+      # could be more specific. see p 22 of the spec for exerr codes
+      return Safecharge::Constants::BANK_ERROR if err < 0 && exerr != 0
+      return Safecharge::Constants::INVALID_LOGIN if err == -1001
+      return Safecharge::Constants::INVALID_IP if err == -1005
+      return Safecharge::Constants::TIMEOUT if err == -1203
+      return Safecharge::Constants::UNKNOWN_ERROR      
+    end
+    
+    protected
 
-		begin
-			data = new Ox.parse(response)
-
-		rescue => e
-		  puts "Caught error: #{e.message}"
-			raise ResponseException, "Failed to parse XML response: #{e.message}"
-		}
-
-		return nil if data.empty?
-		return data
-	}
+    def calculate_checksum
+      codes = [Safecharge::Constants::SECRET_KEY,
+              self.params['totalAmount'],
+              self.params['currency'],
+              self.params['responseTimeStamp'],
+              self.params['PPP_TransactionID'],
+              self.params['Status'],
+              self.params['productId']]
+      s = codes.join('')
+      return Digest::MD5.hexdigest(s)
+    end
   end
 end

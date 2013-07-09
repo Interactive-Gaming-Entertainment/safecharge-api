@@ -3,11 +3,10 @@
 
 require "safecharge"
 require "safecharge/constants"
-require 'net/http'
 
 module Safecharge
   class Request
-    attr_accessor :mode, :params, :items, :url, :full_url, :response
+    attr_accessor :mode, :params, :items, :url, :full_url
     
     ALLOWED_FIELDS = {
       'currency' => {:required => true, :type => 'currency_code'},
@@ -78,11 +77,6 @@ module Safecharge
                           'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S")})
       self.params.merge!({'checksum' => calculate_checksum})
       self.construct_url
-    end
-
-    def send
-      self.response = Net::HTTP.get(self.full_url)
-      return self
     end
 
     protected
