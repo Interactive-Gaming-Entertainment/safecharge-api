@@ -1,6 +1,6 @@
 # Safecharge
 
-A simple Ruby wrapper for the SafeCharge payment API
+A simple Ruby wrapper for the SafeCharge PPP Payment API
 
 ## Status
 

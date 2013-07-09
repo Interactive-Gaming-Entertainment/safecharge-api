@@ -3,39 +3,29 @@
 
 module Safecharge
   class Constants
-    SERVER_LIVE = 'https://process.safecharge.com/service.asmx/Process?'
-    SERVER_TEST = 'https://test.safecharge.com/service.asmx/Process?'
+    API_VERSION = '3.0.0'
 
-    REQUEST_TYPE_AUTH   = 'Auth'
-    REQUEST_TYPE_SETTLE = 'Settle'
-    REQUEST_TYPE_SALE   = 'Sale'
-    REQUEST_TYPE_CREDIT = 'Credit'
-    REQUEST_TYPE_VOID   = 'Void'
-    REQUEST_TYPE_AVS    = 'AVSOnly'
+    SERVER_TEST = 'https://ppp-test.safecharge.com/ppp/purchase.do?'
+    SERVER_LIVE = 'https://secure.safecharge.com/ppp/purchase.do?'
+    
+    SECRET_KEY = ENV['SAFECHARGE_SECRET_KEY'] || 'you must set this'
+    MERCHANT_ID =  ENV['SAFECHARGE_MERCHANT_ID'] || 'you must set this'
+    MERCHANT_SITE_ID = ENV['SAFECHARGE_MERCHANT_SITE_ID'] || 'you must set this'
 
-    REQUEST_DEFAULT_USERNAME = ''
-    REQUEST_DEFAULT_PASSWORD = ''
-    REQUEST_DEFAULT_TIMEOUT = 30
-    REQUEST_DEFAULT_LIVE = false
+#     REQUEST_TYPE_AUTH   = 'Auth'
+#     REQUEST_TYPE_SETTLE = 'Settle'
+#     REQUEST_TYPE_SALE   = 'Sale'
+#     REQUEST_TYPE_CREDIT = 'Credit'
+#     REQUEST_TYPE_VOID   = 'Void'
+#     REQUEST_TYPE_AVS    = 'AVSOnly'
+# 
+#     RESPONSE_STATUS_APPROVED = 'APPROVED'
+#     RESPONSE_STATUS_SUCCESS  = 'SUCCESS'
+#     RESPONSE_STATUS_DECLINED = 'DECLINED'
+#     RESPONSE_STATUS_ERROR    = 'ERROR'
+#     RESPONSE_STATUS_PENDING  = 'PENDING'
 
-    REQUEST_DEFAULT_IP_ADDRESS = '127.0.0.1'
-    REQUEST_DEFAULT_RESPONSE_FORMAT = 4
-    REQUEST_DEFAULT_IS_3D_TRANS = 0
-
-    RESPONSE_STATUS_APPROVED = 'APPROVED'
-    RESPONSE_STATUS_SUCCESS  = 'SUCCESS'
-    RESPONSE_STATUS_DECLINED = 'DECLINED'
-    RESPONSE_STATUS_ERROR    = 'ERROR'
-    RESPONSE_STATUS_PENDING  = 'PENDING'
-
-    RESPONSE_XML_VERSION = '1.0'
-    RESPONSE_XML_ENCODING = 'utf-8'
-
-    DEFAULT_PAD_FROM = 6
-    DEFAULT_PAD_TO = 4
-    DEFAULT_PAD_WITH =  'x'
-
-    CARD_NUMBER_MIN_LENGTH = 13
-    CARD_NUMBER_MAX_LENGTH = 19
+    DEFAULT_ENCODING = 'utf-8'
+    DEFAULT_CURRENCY_CODE = 'USD'
   end
 end
