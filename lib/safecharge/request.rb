@@ -7,7 +7,7 @@ require "safecharge/constants"
 module Safecharge
   class Request
     attr_accessor :mode, :params, :items, :url, :full_url
-    
+
     ALLOWED_FIELDS = {
       'currency' => {:required => true, :type => 'currency_code'},
       'customData' => {:required => false, :type => 'string'},
@@ -33,9 +33,9 @@ module Safecharge
       'userid' => {:required => false, :type => 'string'},
       'version' => {:required => true, :type => 'string'},
       'webMasterId' => {:required => false, :type => 'string'}
-      
+
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.
-    
+
     ALLOWED_ITEM_FIELDS = {
       'name' => {:required => true, :type => 'string'},
       'number' => {:required => true, :type => 'string'},
@@ -44,9 +44,9 @@ module Safecharge
       'discount' => {:required => false, :type => 'percent'},
       'shipping' => {:required => false, :type => 'currency'},
       'handling' => {:required => false, :type => 'currency'}
-      
+
     }
-    
+
     DEFAULT_PARAMS = {
       'merchant_id' => Safecharge::Constants::MERCHANT_ID,
       'merchant_site_id' => Safecharge::Constants::MERCHANT_SITE_ID,
@@ -71,7 +71,7 @@ module Safecharge
       self.items = items
       self.params = DEFAULT_PARAMS.merge(core_params)
       self.validate_parameters(self.params)
-      items.each {|i| self.validate_parameters(i, ALLOWED_ITEM_FIELDS)}
+      items.each {|i| self.validate_parameters(i, self.class::ALLOWED_ITEM_FIELDS)}
       self.params.merge!(extracted_items)
       self.params.merge!({'numberofitems' => items.size,
                           'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S")})
@@ -80,7 +80,7 @@ module Safecharge
     end
 
     protected
-    
+
     def extract_items(params)
       items = params.delete('items')
       return params, nil, nil if items == nil
@@ -93,13 +93,13 @@ module Safecharge
       end
       return params, items, keyed_items
     end
-    
-    def validate_parameters(params, against = ALLOWED_FIELDS)
+
+    def validate_parameters(params, against = self.class::ALLOWED_FIELDS)
       self.validate_fields(params, against)
       self.validate_no_extra_fields(params, against)
     end
 
-    def validate_fields(params, against = ALLOWED_FIELDS)
+    def validate_fields(params, against = self.class::ALLOWED_FIELDS)
       against.each do |name, meta|
         required = (meta[:required] === true)
         # Check that all required parameters are present
@@ -112,6 +112,8 @@ module Safecharge
             # Check the type of the value
             correct_type = false
             case meta[:type]
+              when 'boolstring'
+                correct_type = p.is_a?(String) && ['True', 'False'].include?(p)
               when 'string'
                 correct_type = p.is_a? String
               when 'currency_code'
@@ -132,7 +134,7 @@ module Safecharge
       end
     end
 
-    def validate_no_extra_fields(params, against = ALLOWED_FIELDS)
+    def validate_no_extra_fields(params, against = self.class::ALLOWED_FIELDS)
       allowed_fields = against.keys
       params.each do |key, value|
         raise InternalException, "Field #{key} is not supported" if !allowed_fields.include?(key)

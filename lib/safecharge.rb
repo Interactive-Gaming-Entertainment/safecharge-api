@@ -4,6 +4,7 @@
 require "safecharge/version"
 require "safecharge/constants"
 require "safecharge/request"
+require "safecharge/wc_request"
 require "safecharge/response"
 
 # The Safecharge PPP system provides a simple means for merchants to integrate credit card
@@ -107,4 +108,40 @@ module Safecharge
       raise RuntimeError, "Undocumented Internal error: #{e.message}"
     end
   end
+
+  # module level method to get the redirection URL given some params.
+  # you must explicitly set the mode to 'live' to generate the production URL.
+  def self.wc_request_url(params = {}, mode = 'test')
+    result = nil
+    url = ''
+    case mode
+      when 'test'
+        url = Safecharge::Constants::SERVER_TEST
+      when 'live'
+        url = Safecharge::Constants::SERVER_LIVE
+      else
+        raise ArgumentError, "Invalid request mode #{mode}"
+    end
+
+    begin
+      request = Safecharge::WcRequest.new(url, params)
+      return request.full_url
+
+    rescue InternalException => e
+      puts "Caught Internal Exception: #{e.message}"
+      puts e.backtrace
+      raise RuntimeError, "Internal server error. Please try again later."
+
+    rescue ValidationException => e
+      puts "Caught Validation Exception: #{e.message}"
+      puts e.backtrace
+      raise RuntimeError, "Validation error: #{e.message} Fix your data and retry."
+
+    rescue SafechargeError => e
+      puts "Caught General Safecharge Error: #{e.message}"
+      puts e.backtrace
+      raise RuntimeError, "Undocumented Internal error: #{e.message}"
+    end
+  end
+
 end

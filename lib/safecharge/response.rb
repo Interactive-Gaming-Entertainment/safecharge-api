@@ -7,7 +7,7 @@ require "safecharge/constants"
 module Safecharge
   class Response
     attr_accessor :params
-    
+
     ALLOWED_FIELDS = [
       'Status', 'totalAmount', 'TransactionID', 'ClientUniqueID', 'ErrCode',
       'ExErrCode', 'AuthCode', 'Reason', 'Token', 'ReasonCode',
@@ -22,12 +22,12 @@ module Safecharge
     def initialize(incoming_encoded_params = nil)
       self.params = self.decode(incoming_encoded_params)
     end
-    
+
     def decode(param_string)
       #todo write this.
       return {}
     end
-    
+
     def self.code(err, exerr)
       return Safecharge::Constants::APPROVED if err == 0 && exerr == 0
       return Safecharge::Constants::DECLINED if err == -1 && exerr == 0
@@ -38,9 +38,9 @@ module Safecharge
       return Safecharge::Constants::INVALID_LOGIN if err == -1001
       return Safecharge::Constants::INVALID_IP if err == -1005
       return Safecharge::Constants::TIMEOUT if err == -1203
-      return Safecharge::Constants::UNKNOWN_ERROR      
+      return Safecharge::Constants::UNKNOWN_ERROR
     end
-    
+
     protected
 
     def calculate_checksum
