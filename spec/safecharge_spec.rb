@@ -15,7 +15,7 @@ describe Safecharge do
 	  Safecharge::Constants::SERVER_TEST.should eq 'https://ppp-test.safecharge.com/ppp/purchase.do?'
 
     Safecharge::Constants::DEFAULT_ENCODING.should eq 'utf-8'
-    Safecharge::Constants::DEFAULT_CURRENCY_CODE.should eq 'USD'
+    Safecharge::Constants::DEFAULT_CURRENCY_CODE.should eq 'EUR'
 
   end
 
