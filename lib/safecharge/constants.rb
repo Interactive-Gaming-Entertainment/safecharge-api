@@ -33,6 +33,6 @@ module Safecharge
 #     REQUEST_TYPE_AVS    = 'AVSOnly'
 
     DEFAULT_ENCODING = 'utf-8'
-    DEFAULT_CURRENCY_CODE = 'USD'
+    DEFAULT_CURRENCY_CODE = 'EUR'
   end
 end
