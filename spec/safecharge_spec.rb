@@ -5,18 +5,37 @@ require "safecharge/version"
 require "safecharge/constants"
 
 describe Safecharge do
-  it "should be version 0.0.1" do
-    Safecharge::VERSION.should eq "0.0.1"
+  it "should be version 0.0.2" do
+    Safecharge::VERSION.should eq "0.0.2"
   end
 
   it "should have constants" do
     Safecharge::Constants::API_VERSION.should eq '3.0.0'
-    Safecharge::Constants::SERVER_LIVE.should eq 'https://secure.safecharge.com/ppp/purchase.do?'
-	  Safecharge::Constants::SERVER_TEST.should eq 'https://ppp-test.safecharge.com/ppp/purchase.do?'
-
     Safecharge::Constants::DEFAULT_ENCODING.should eq 'utf-8'
     Safecharge::Constants::DEFAULT_CURRENCY_CODE.should eq 'EUR'
-
   end
 
+  it "should have loaded environment variables" do
+    Safecharge::Constants::SERVER_LIVE.should_not be_nil
+    Safecharge::Constants::SERVER_LIVE.should_not be_empty
+	  Safecharge::Constants::SERVER_TEST.should_not be_nil
+	  Safecharge::Constants::SERVER_TEST.should_not be_empty
+
+    Safecharge::Constants::SECRET_KEY.should_not be_nil
+    Safecharge::Constants::SECRET_KEY.should_not be_empty
+    Safecharge::Constants::MERCHANT_ID.should_not be_nil
+    Safecharge::Constants::MERCHANT_ID.should_not be_empty
+    Safecharge::Constants::MERCHANT_SITE_ID.should_not be_nil
+    Safecharge::Constants::MERCHANT_SITE_ID.should_not be_empty
+    Safecharge::Constants::MERCHANT_3D_SITE_ID.should_not be_nil
+    Safecharge::Constants::MERCHANT_3D_SITE_ID.should_not be_empty
+    
+    Safecharge::Constants::SG_CLIENT_PASSWORD.should_not be_nil
+    Safecharge::Constants::SG_CLIENT_PASSWORD.should_not be_empty
+    Safecharge::Constants::SG_3D_CLIENT_PASSWORD.should_not be_nil
+    Safecharge::Constants::SG_3D_CLIENT_PASSWORD.should_not be_empty
+    
+    Safecharge::Constants::CPANEL_PASSWORD.should_not be_nil
+    Safecharge::Constants::CPANEL_PASSWORD.should_not be_empty
+  end
 end

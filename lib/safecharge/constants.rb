@@ -5,12 +5,18 @@ module Safecharge
   class Constants
     API_VERSION = '3.0.0'
 
-    SERVER_TEST = 'https://ppp-test.safecharge.com/ppp/purchase.do?'
-    SERVER_LIVE = 'https://secure.safecharge.com/ppp/purchase.do?'
+    SERVER_TEST = ENV['SAFECHARGE_SERVER_TEST']                     # provided by SafeCharge
+    SERVER_LIVE = ENV['SAFECHARGE_SERVER_LIVE']                     # provided by SafeCharge
     
-    SECRET_KEY = ENV['SAFECHARGE_SECRET_KEY'] || 'you must set this'
-    MERCHANT_ID =  ENV['SAFECHARGE_MERCHANT_ID'] || 'you must set this'
-    MERCHANT_SITE_ID = ENV['SAFECHARGE_MERCHANT_SITE_ID'] || 'you must set this'
+    SECRET_KEY = ENV['SAFECHARGE_SECRET_KEY']                       # provided by SafeCharge
+    MERCHANT_ID =  ENV['SAFECHARGE_MERCHANT_ID']                    # provided by SafeCharge
+    MERCHANT_SITE_ID = ENV['SAFECHARGE_MERCHANT_SITE_ID']           # provided by SafeCharge
+    MERCHANT_3D_SITE_ID = ENV['SAFECHARGE_MERCHANT_3D_SITE_ID']     # provided by SafeCharge
+    
+    SG_CLIENT_PASSWORD = ENV['SAFECHARGE_SG_CLIENT_PASSWORD']       # provided by SafeCharge
+    SG_3D_CLIENT_PASSWORD = ENV['SAFECHARGE_SG_3D_CLIENT_PASSWORD'] # provided by SafeCharge
+    
+    CPANEL_PASSWORD = ENV['SAFECHARGE_CPANEL_PASSWORD']             # provided by SafeCharge
 
     APPROVED = 'APPROVED'
     DECLINED = 'DECLINED'

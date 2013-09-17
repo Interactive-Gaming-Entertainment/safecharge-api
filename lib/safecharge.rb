@@ -62,7 +62,7 @@ require "safecharge/response"
 #
 #         response = Safecharge.parse_response
 #
-# todo: finish these docs
+# TODO: finish these docs
 #
 module Safecharge
 
