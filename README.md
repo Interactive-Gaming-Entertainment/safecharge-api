@@ -82,7 +82,51 @@ The Safecharge Web Cashier extends the standard Public Payment Page with paramat
 allow you to register and identify customers in SafeCharge's system, and enable you to
 change the deposit amounts within limits you define.
 
-TODO: finish these docs
+It works like this:
+
+Step 1)  Your website provides a way for customers to choose the items they wish to buy,
+say via a shopping basket, or similar.
+
+Collate an array of items with the following information
+        
+    items = [
+      {
+      'name' => 'deposit',
+      'number' => 'something',
+      'amount' => 0,
+      'quantity' => 1,
+      'open_amount' => 'true',
+      'min_amount' => 10.0,
+      'max_amount' => 1000.0,
+      },
+    ]
+
+and insert that items array into an array of params like so
+
+    params = {
+      'total_amount' => 55,
+      'currency' => 'USD',
+      'items' => items,
+      'user_token' => 'auto', # or 'register'
+      'user_token_id' => 'player_id'
+    }
+
+Note you must supply the following environment variables for this API to work.
+
+    SAFECHARGE_SECRET_KEY, SAFECHARGE_MERCHANT_ID, SAFECHARGE_MERCHANT_SITE_ID
+
+These will have been provided to you by Safecharge.
+
+Step 2) You offer a `checkout` button that links to the following url.
+
+    `url = Safecharge.wc_request_url(params)`
+
+Step 3) The SafeCharge system will redirect the user to the WebCashier Page
+and there they will enter in their credit card and other payment details as needed.
+When the user confirms their payment, the Safecharge system authenticates it and
+redirects the user to either a 'success', 'failure' or 'back' page. The back page
+is used if the user suspends the payment processing by clicking on their browser's
+back button.
 
 ## Contributing
 
