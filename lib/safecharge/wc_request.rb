@@ -32,7 +32,7 @@ module Safecharge
       'userid' => {:required => false, :type => 'string', length: 50},
       'version' => {:required => true, :type => 'string', length: 10},
       'webMasterId' => {:required => false, :type => 'string', length: 255},
-      'user_token' => {:required => false, :type => 'string', length: 8}, # register or auto
+      'user_token' => {:required => false, :type => 'usertoken'},
       'user_token_id' => {:required => true, :type => 'string', length: 45}
 
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.

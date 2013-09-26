@@ -114,6 +114,8 @@ module Safecharge
             case meta[:type]
               when 'boolstring'
                 correct_type = p.is_a?(String) && ['True', 'False'].include?(p)
+              when 'usertoken'
+                correct_type = p.is_a?(String) && ['register', 'auto'].include?(p)
               when 'string'
                 correct_type = p.is_a? String
                 raise ValidationException, sprintf("Value '%s' in field '%s' is too long.", p, name) if p.size > meta[:length]

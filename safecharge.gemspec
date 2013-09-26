@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   spec.date          = Time.now.utc.strftime("%Y-%m-%d")
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = `git ls-files`.split($/) - %w(.rspec .gitignore Rakefile) - `git ls-files test_data`.split($/) - `git ls-files spec`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
