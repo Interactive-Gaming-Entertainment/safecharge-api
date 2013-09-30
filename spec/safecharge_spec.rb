@@ -3,6 +3,7 @@
 
 require "safecharge/version"
 require "safecharge/constants"
+require 'spec_helper'
 
 describe Safecharge do
   it "should be version 0.0.5" do

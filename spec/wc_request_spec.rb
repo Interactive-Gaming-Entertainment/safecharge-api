@@ -4,6 +4,7 @@
 require "safecharge"
 require "safecharge/constants"
 require "safecharge/request"
+require 'spec_helper'
 
 describe Safecharge::WcRequest do
 
@@ -42,3 +43,4 @@ describe Safecharge::WcRequest do
   end
 
 end
+

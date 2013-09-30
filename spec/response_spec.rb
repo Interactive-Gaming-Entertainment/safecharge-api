@@ -4,6 +4,7 @@
 require "safecharge"
 require "safecharge/constants"
 require "safecharge/response"
+require 'spec_helper'
 
 describe Safecharge::Response do
 

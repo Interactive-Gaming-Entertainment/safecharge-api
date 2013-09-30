@@ -24,7 +24,7 @@ module Safecharge
     end
 
     def decode(param_string)
-      #todo write this.
+      #TODO: write this.
       return {}
     end
 
