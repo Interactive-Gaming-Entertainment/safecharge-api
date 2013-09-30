@@ -11,11 +11,11 @@ This project is under active development right now, and not suitable for use.
 
 Add this line to your application's Gemfile:
 
-    gem 'safecharge'
+    gem 'safecharge', '~>0.0.6'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
