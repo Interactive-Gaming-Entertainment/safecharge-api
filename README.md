@@ -1,7 +1,7 @@
 # Safecharge
 
 A simple Ruby wrapper for the SafeCharge PPP Payment API v 3.0.0 (Revised July 2011), as well as
-the SafeCharge Web Cashier API v1.0 (Revised July 2013).
+the SafeCharge Web Cashier API v1.1 (Revised 10 July 2013).
 
 ## Status
 
