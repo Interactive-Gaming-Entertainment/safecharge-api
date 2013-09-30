@@ -16,7 +16,7 @@ describe Safecharge::WcRequest do
         'number' => 'sku12345',
         'amount' => 15,
         'quantity' => 1,
-        'open_amount' => 'True',
+        'open_amount' => 'true',
         'min_amount' => 100,
         'max_amount' => 200} ],
     'user_token_id' => 'yayfortokens'

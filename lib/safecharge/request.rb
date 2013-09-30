@@ -113,7 +113,7 @@ module Safecharge
             correct_type = false
             case meta[:type]
               when 'boolstring'
-                correct_type = p.is_a?(String) && ['True', 'False'].include?(p)
+                correct_type = p.is_a?(String) && ['true', 'false'].include?(p)
               when 'usertoken'
                 correct_type = p.is_a?(String) && ['register', 'auto'].include?(p)
               when 'string'

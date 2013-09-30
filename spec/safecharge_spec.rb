@@ -6,8 +6,8 @@ require "safecharge/constants"
 require 'spec_helper'
 
 describe Safecharge do
-  it "should be version 0.0.5" do
-    Safecharge::VERSION.should eq "0.0.5"
+  it "should be version 0.0.6" do
+    Safecharge::VERSION.should eq "0.0.6"
   end
 
   it "should have constants" do

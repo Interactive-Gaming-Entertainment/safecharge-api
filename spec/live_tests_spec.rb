@@ -30,7 +30,7 @@ describe "Safecharge::WcRequest Live Test" do
         'number' => 'sku12345',
         'amount' => 15,
         'quantity' => 1,
-        'open_amount' => 'True',
+        'open_amount' => 'true',
         'min_amount' => 100,
         'max_amount' => 200} ],
     'user_token_id' => 'yayfortokens'
@@ -39,22 +39,17 @@ describe "Safecharge::WcRequest Live Test" do
   it "should respond nicely to a correctly formed request" do
     urlstring = Safecharge.request_url(params)
     urlstring.should_not eq nil
-    puts urlstring
     uri = URI(urlstring)
     response = Net::HTTP.get(uri)
-    # puts response
-    # TODO: this works but need to figure out a better way to test that
-    # response.should_not match 'Error'
+    response.should_not match 'ppp_status=FAIL'
   end
 
-  it "should respond nicely to a correctly formed wc_request", focus: true do
+  it "should respond nicely to a correctly formed wc_request" do
     urlstring = Safecharge.wc_request_url(wc_params)
     urlstring.should_not eq nil
-    puts urlstring
     uri = URI(urlstring)
     response = Net::HTTP.get(uri)
-    puts response
-    response.should_not match 'Error'
+    response.should_not match 'ppp_status=FAIL'
   end
 
 end
