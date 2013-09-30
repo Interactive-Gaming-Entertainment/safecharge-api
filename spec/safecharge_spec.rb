@@ -5,8 +5,8 @@ require "safecharge/version"
 require "safecharge/constants"
 
 describe Safecharge do
-  it "should be version 0.0.4" do
-    Safecharge::VERSION.should eq "0.0.4"
+  it "should be version 0.0.5" do
+    Safecharge::VERSION.should eq "0.0.5"
   end
 
   it "should have constants" do
@@ -24,11 +24,11 @@ describe Safecharge do
     Safecharge::Constants::SECRET_KEY.should_not be_nil
     Safecharge::Constants::SECRET_KEY.should_not be_empty
     Safecharge::Constants::MERCHANT_ID.should_not be_nil
-    Safecharge::Constants::MERCHANT_ID.should_not be_empty
+    Safecharge::Constants::MERCHANT_ID.should_not eq 0
     Safecharge::Constants::MERCHANT_SITE_ID.should_not be_nil
-    Safecharge::Constants::MERCHANT_SITE_ID.should_not be_empty
+    Safecharge::Constants::MERCHANT_SITE_ID.should_not eq 0
     Safecharge::Constants::MERCHANT_3D_SITE_ID.should_not be_nil
-    Safecharge::Constants::MERCHANT_3D_SITE_ID.should_not be_empty
+    Safecharge::Constants::MERCHANT_3D_SITE_ID.should_not eq 0
     
     Safecharge::Constants::SG_CLIENT_PASSWORD.should_not be_nil
     Safecharge::Constants::SG_CLIENT_PASSWORD.should_not be_empty

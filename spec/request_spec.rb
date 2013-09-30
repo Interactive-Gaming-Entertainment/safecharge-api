@@ -8,8 +8,6 @@ require "safecharge/request"
 describe Safecharge::Request do
 
   let(:params) { { 
-    'merchant_id' => 4797923801005868286,
-    'merchant_site_id' => 37501,
     'total_amount' => 25,
     'currency' => 'USD',
     'items' => [
