@@ -32,7 +32,11 @@ module Safecharge
       'total_tax' => {:required => false, :type => 'percent'},
       'userid' => {:required => false, :type => 'string', length: 50},
       'version' => {:required => true, :type => 'string', length: 10},
-      'webMasterId' => {:required => false, :type => 'string', length: 255}
+      'webMasterId' => {:required => false, :type => 'string', length: 255},
+      'first_name' => {:required => false, :type => 'string', length: 30},
+      'last_name' => {:required => false, :type => 'string', length: 40},
+      'city' => {:required => false, :type => 'string', length: 30},
+      'country' => {:required => false, :type => 'string', length: 20}
 
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.
 

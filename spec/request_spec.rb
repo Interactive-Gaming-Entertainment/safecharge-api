@@ -44,6 +44,16 @@ describe Safecharge::Request do
     new_params.merge!({'merchant_id' => 4797923801005868286})
 		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
     new_params.merge!({'merchant_site_id' => 37501})
+    
+    expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+    new_params.merge!({'first_name' => 'John'})
+    expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+    new_params.merge!({'last_name' => 'Citizen'})
+    expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+    new_params.merge!({'city' => 'New York'})
+		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+    new_params.merge!({'country' => 'USA'})
+				
 		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
     new_params.merge!({'total_amount' => 15})
 		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException

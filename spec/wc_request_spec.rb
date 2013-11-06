@@ -9,6 +9,10 @@ require 'spec_helper'
 describe Safecharge::WcRequest do
 
   let(:params) { {
+    'first_name' => 'John',
+    'last_name' => 'Citizen',
+    'city' => 'New York',
+    'country' => 'USA',
     'total_amount' => 15,
     'currency' => 'USD',
     'items' => [
