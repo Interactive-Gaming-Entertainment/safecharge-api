@@ -23,12 +23,12 @@ describe "Safecharge::WcRequest Live Test" do
   } }
 
   let(:wc_params) { {
-    'total_amount' => 15,
+    'total_amount' => 150,
     'currency' => 'USD',
     'items' => [
       { 'name' => 'ball',
         'number' => 'sku12345',
-        'amount' => 15,
+        'amount' => 150,
         'quantity' => 1,
         'open_amount' => 'true',
         'min_amount' => 100,

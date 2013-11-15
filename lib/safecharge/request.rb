@@ -36,7 +36,11 @@ module Safecharge
       'first_name' => {:required => false, :type => 'string', length: 30},
       'last_name' => {:required => false, :type => 'string', length: 40},
       'city' => {:required => false, :type => 'string', length: 30},
-      'country' => {:required => false, :type => 'string', length: 20}
+      'country' => {:required => false, :type => 'string', length: 20},
+      'state' => {:required => false, :type => 'string', length: 20}, # ISO code
+      'zip' => {:required => false, :type => 'string', length: 10}, # post code
+      'address1' => {:required => false, :type => 'string', length: 60},
+      'address2' => {:required => false, :type => 'string', length: 60}
 
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.
 
