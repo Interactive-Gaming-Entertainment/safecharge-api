@@ -11,7 +11,7 @@ This project is under active development right now, and not suitable for use.
 
 Add this line to your application's Gemfile:
 
-    gem 'safecharge', '~>0.0.6'
+    gem 'safecharge'
 
 And then execute:
 
