@@ -6,6 +6,7 @@ require "safecharge/constants"
 require "safecharge/request"
 require "safecharge/wc_request"
 require "safecharge/response"
+require "safecharge/dmn"
 
 # The Safecharge PPP system provides a simple means for merchants to integrate credit card
 # payments into their site, without worrying about having to capture their customers'

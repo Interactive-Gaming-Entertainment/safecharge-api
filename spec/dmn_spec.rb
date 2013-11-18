@@ -2,7 +2,6 @@
 #coding: utf-8
 
 require "safecharge"
-require "safecharge/dmn"
 require 'spec_helper'
 
 describe Safecharge::DMN do
