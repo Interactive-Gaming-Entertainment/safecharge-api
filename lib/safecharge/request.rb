@@ -74,7 +74,7 @@ module Safecharge
       end
       self.url = url
       self.full_url = url
-      core_params, items, extracted_items = self.extract_items(params)
+      core_params, items, extracted_items = self.extract_items(convert_symbols_to_strings(params))
       raise ValidationException, "Missing array of Items." if items == nil || items.empty?
       self.items = items
       self.params = DEFAULT_PARAMS.merge(core_params)
@@ -82,8 +82,8 @@ module Safecharge
       items.each {|i| self.validate_parameters(i, self.class::ALLOWED_ITEM_FIELDS)}
       self.params.merge!(extracted_items)
       self.params.merge!({'numberofitems' => items.size,
-                          'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S")})
-      self.params.merge!({'checksum' => calculate_checksum})
+                          'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S"),
+                          'checksum' => calculate_checksum})
       self.construct_url
     end
 
@@ -91,7 +91,7 @@ module Safecharge
 
     def extract_items(params)
       items = params.delete('items')
-      return params, nil, nil if items == nil
+      return params, nil, nil if items.nil?
       keyed_items = {}
       items.each_with_index do |item, i|
         item.keys.each do |key|
@@ -172,6 +172,22 @@ module Safecharge
       uri.query = URI.encode_www_form(self.params)
       self.full_url = uri.to_s
       return uri
+    end
+
+    def convert_symbols_to_strings(a_hash = {})
+      return {} if a_hash.empty?
+      result = {}
+      a_hash.each do |key, value|
+        val = value
+        if value.is_a?(Hash)
+          val = convert_symbols_to_strings(value)
+        elsif value.is_a?(Array)
+          val = value.map { |va| va.is_a?(Hash) ? convert_symbols_to_strings(va) : va }
+        end
+        result[key] = val if key.is_a?(String)
+        result[key.to_s] = val if key.is_a?(Symbol)
+      end
+      return result
     end
 
 #     def calculate_item_total

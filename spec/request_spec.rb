@@ -18,6 +18,16 @@ describe Safecharge::Request do
         'quantity' => 1} ]
   } }
   
+  let(:sym_params) { { 
+    total_amount: 25,
+    currency: 'USD',
+    items: [
+      { name: 'ball',
+        number: 'sku12345',
+        amount: 25,
+        quantity: 1} ]
+  } }
+
   let(:full_params) {
     params.merge({
       'customData' => 'something',
@@ -56,6 +66,12 @@ describe Safecharge::Request do
   describe "positive tests" do
     it "should create a request with minimal params" do
   		req = Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, params)
+      req.should_not eq nil
+      req.full_url.should_not eq req.url
+    end
+
+    it "should create a request with minimal symbol params" do
+  		req = Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, sym_params)
       req.should_not eq nil
       req.full_url.should_not eq req.url
     end
@@ -122,7 +138,7 @@ describe Safecharge::Request do
   		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to_not raise_error
 
       new_params.merge!({'nonsense' => 'not here please'})
-  		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+  		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::InternalException
     
       item.merge!({'unknown' => "whatsallthisthen?"})
       new_params.merge!({'items' => [item]})

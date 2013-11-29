@@ -26,6 +26,24 @@ describe Safecharge::WcRequest do
     'user_token_id' => 'yayfortokens'
   } }
 
+  let(:sym_params) { { 
+    first_name: 'John',
+    last_name: 'Citizen',
+    city: 'New York',
+    country: 'USA',
+    total_amount: 25,
+    currency: 'USD',
+    items: [
+      { name: 'ball',
+        number: 'sku12345',
+        amount: 25,
+        quantity: 1,
+        open_amount: 'true',
+        min_amount: 10,
+        max_amount: 200} ],
+    user_token_id: 'yayfortokens'
+  } }
+
   let(:full_params) {
     params.merge({
       'user_token' => 'auto',
@@ -60,6 +78,12 @@ describe Safecharge::WcRequest do
   describe "positive tests" do
     it "should create a request with minimal params" do
   		req = Safecharge::WcRequest.new(Safecharge::Constants::SERVER_TEST, params)
+      req.should_not eq nil
+      req.full_url.should_not eq req.url
+    end
+
+    it "should create a request with minimal symbol params" do
+  		req = Safecharge::WcRequest.new(Safecharge::Constants::SERVER_TEST, sym_params)
       req.should_not eq nil
       req.full_url.should_not eq req.url
     end
