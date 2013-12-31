@@ -36,7 +36,11 @@ module Safecharge
       'first_name' => {:required => false, :type => 'string', length: 30},
       'last_name' => {:required => false, :type => 'string', length: 40},
       'city' => {:required => false, :type => 'string', length: 30},
-      'country' => {:required => false, :type => 'string', length: 20}
+      'country' => {:required => false, :type => 'string', length: 20},
+      'state' => {:required => false, :type => 'string', length: 20}, # ISO code
+      'zip' => {:required => false, :type => 'string', length: 10}, # post code
+      'address1' => {:required => false, :type => 'string', length: 60},
+      'address2' => {:required => false, :type => 'string', length: 60}
 
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.
 
@@ -77,9 +81,8 @@ module Safecharge
       self.validate_parameters(self.params)
       items.each {|i| self.validate_parameters(i, self.class::ALLOWED_ITEM_FIELDS)}
       self.params.merge!(extracted_items)
-      self.params.merge!({'numberofitems' => items.size,
-                          'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S")})
-      self.params.merge!({'checksum' => calculate_checksum})
+      self.params.merge!({'numberofitems' => items.size, 'time_stamp' => Time.now.utc.strftime("%Y-%m-%d.%H:%M:%S")})
+      self.params.merge!({'checksum' => calculate_checksum}) # must happen after the previous merge!
       self.construct_url
     end
 
@@ -103,7 +106,7 @@ module Safecharge
 
     def extract_items(params)
       items = params.delete('items')
-      return params, nil, nil if items == nil
+      return params, nil, nil if items.nil?
       keyed_items = {}
       items.each_with_index do |item, i|
         item.keys.each do |key|

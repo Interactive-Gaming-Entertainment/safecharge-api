@@ -5,13 +5,13 @@ the SafeCharge Web Cashier API v1.1 (Revised 10 July 2013).
 
 ## Status
 
-This project is under active development right now, and not suitable for use.
+This project is under active development right now, and may not suitable for use.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'safecharge', '~>0.0.6'
+    gem 'safecharge'
 
 And then execute:
 
@@ -113,7 +113,15 @@ and insert that items array into an array of params like so
 
 Note you must supply the following environment variables for this API to work.
 
-    SAFECHARGE_SECRET_KEY, SAFECHARGE_MERCHANT_ID, SAFECHARGE_MERCHANT_SITE_ID
+    SAFECHARGE_SERVER_TEST=_provided by safecharge_
+    SAFECHARGE_SERVER_LIVE=_provided by safecharge_
+    SAFECHARGE_SECRET_KEY=_provided by safecharge_
+    SAFECHARGE_MERCHANT_ID=_provided by safecharge_
+    SAFECHARGE_MERCHANT_SITE_ID=_provided by safecharge_
+    SAFECHARGE_MERCHANT_3D_SITE_ID=_provided by safecharge_
+    SAFECHARGE_SG_CLIENT_PASSWORD=_provided by safecharge_
+    SAFECHARGE_SG_3D_CLIENT_PASSWORD=_provided by safecharge_
+    SAFECHARGE_CPANEL_PASSWORD=_provided by safecharge_
 
 These will have been provided to you by Safecharge.
 
