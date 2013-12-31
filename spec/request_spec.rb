@@ -18,6 +18,16 @@ describe Safecharge::Request do
         'quantity' => 1} ]
   } }
   
+  let(:sym_params) { { 
+    total_amount: 25,
+    currency: 'USD',
+    items: [
+      { name: 'ball',
+        number: 'sku12345',
+        amount: 25,
+        quantity: 1} ]
+  } }
+  
   it "should create a request" do
 
 		req = Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, params)
@@ -27,6 +37,18 @@ describe Safecharge::Request do
 
   it "should create a request when called from the top" do
     url = Safecharge.request_url(params)
+    url.should_not eq nil
+  end
+
+  it "should create a request with symbols instead of string keys" do
+
+		req = Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, sym_params)
+    req.should_not eq nil
+    req.full_url.should_not eq req.url
+  end
+
+  it "should create a request when called from the top with symbols instead of string keys" do
+    url = Safecharge.request_url(sym_params)
     url.should_not eq nil
   end
 
@@ -74,7 +96,7 @@ describe Safecharge::Request do
 		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to_not raise_error
 
     new_params.merge!({'nonsense' => 'not here please'})
-		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::ValidationException
+		expect {Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, new_params)}.to raise_error Safecharge::InternalException
     
     item.merge!({'unknown' => "whatsallthisthen?"})
     new_params.merge!({'items' => [item]})

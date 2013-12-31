@@ -59,18 +59,18 @@ module Safecharge
       'encoding' => Safecharge::Constants::DEFAULT_ENCODING
     }
 
-    def initialize(url, params = {})
-      raise ArgumentError, "missing url" if url == nil || url.empty?
-      if url === Safecharge::Constants::SERVER_TEST
+    def initialize(a_url, some_params = {})
+      raise ArgumentError, "missing url" if a_url == nil || a_url.empty?
+      if a_url === Safecharge::Constants::SERVER_TEST
         self.mode = 'test'
-      elsif url === Safecharge::Constants::SERVER_LIVE
+      elsif a_url === Safecharge::Constants::SERVER_LIVE
         self.mode = 'live'
       else
-        raise ArgumentError, "invalid url #{url}"
+        raise ArgumentError, "invalid url #{a_url}"
       end
-      self.url = url
-      self.full_url = url
-      core_params, items, extracted_items = self.extract_items(params)
+      self.url = a_url
+      self.full_url = a_url
+      core_params, items, extracted_items = self.extract_items(convert_symbols_to_strings(some_params))
       raise ValidationException, "Missing array of Items." if items == nil || items.empty?
       self.items = items
       self.params = DEFAULT_PARAMS.merge(core_params)
@@ -84,6 +84,22 @@ module Safecharge
     end
 
     protected
+
+    def convert_symbols_to_strings(a_hash = {})
+      raise ArgumentError, "Expected a Hash" unless a_hash.is_a?(Hash)
+      return {} if a_hash.empty?
+      result = {}
+      a_hash.each do |key, value|
+        if value.is_a?(Array)
+          result[key.to_s] = value.map { |av| av.is_a?(Hash) ? convert_symbols_to_strings(av) : av }
+        elsif value.is_a?(Hash)
+          result[key.to_s] = convert_symbols_to_strings(value)
+        else
+          result[key.to_s] = value
+        end
+      end
+      return result
+    end
 
     def extract_items(params)
       items = params.delete('items')
