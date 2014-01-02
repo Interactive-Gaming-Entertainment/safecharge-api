@@ -54,15 +54,19 @@ describe Safecharge::Request do
       'webMasterId' => 'test',
       'first_name' => 'Bob',
       'last_name' => 'Brown',
+      'email' => 'bob@brow.wn',
       'city' => 'Bristol',
       'country' => 'gb',
       'state' => '', # ISO code
       'zip' => 'BS1', # post code
       'address1' => '99 Kings Lane',
-      'address2' => ''
+      'address2' => '',
+      'phone1' => '+1 234 555 666',
+      'phone2' => '',
+      'phone3' => ''
     })
   }
-  
+
   describe "positive tests" do
     it "should create a request with minimal params" do
   		req = Safecharge::Request.new(Safecharge::Constants::SERVER_TEST, params)

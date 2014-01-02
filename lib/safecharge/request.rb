@@ -35,12 +35,16 @@ module Safecharge
       'webMasterId' => {:required => false, :type => 'string', length: 255},
       'first_name' => {:required => false, :type => 'string', length: 30},
       'last_name' => {:required => false, :type => 'string', length: 40},
+      'email' => {:required => false, :type => 'string', length: 100},
       'city' => {:required => false, :type => 'string', length: 30},
       'country' => {:required => false, :type => 'string', length: 20},
       'state' => {:required => false, :type => 'string', length: 20}, # ISO code
       'zip' => {:required => false, :type => 'string', length: 10}, # post code
       'address1' => {:required => false, :type => 'string', length: 60},
-      'address2' => {:required => false, :type => 'string', length: 60}
+      'address2' => {:required => false, :type => 'string', length: 60},
+      'phone1' => {:required => false, :type => 'string', length: 18},
+      'phone2' => {:required => false, :type => 'string', length: 18},
+      'phone3' => {:required => false, :type => 'string', length: 18}
 
     } # 'time_stamp', 'numberofitems' and 'checksum' are inserted after validation.
 
