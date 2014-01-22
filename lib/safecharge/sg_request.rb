@@ -9,7 +9,7 @@ module Safecharge
 
     ALLOWED_FIELDS = {
       'sg_NameOnCard' => {:required => true, :type => 'string', length: 70},
-      'sg_CardNumber' => {:required => true, :type => 'string', length: 20},
+      'sg_CardNumber' => {:required => false, :type => 'string', length: 20},
       'sg_ExpMonth' => {:required => true, :type => 'string', length: 2},
       'sg_ExpYear' => {:required => true, :type => 'string', length: 2},
       'sg_TransType' => {:required => true, :type => 'sgtranstype'},
@@ -32,7 +32,8 @@ module Safecharge
       'sg_Country' => {:required => true, :type => 'string', length: 3}, # ISO Code
       'sg_Phone' => {:required => true, :type => 'string', length: 18},
       'sg_IPAddress' => {:required => true, :type => 'string', length: 15},
-      'sg_Email' => {:required => true, :type => 'string', length: 100}
+      'sg_Email' => {:required => true, :type => 'string', length: 100},
+      'sg_CCToken' => {:required => false, :type => 'string', length: 150}
 
     }
 

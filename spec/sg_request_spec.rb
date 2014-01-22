@@ -11,7 +11,6 @@ describe Safecharge::SgRequest do
 
   let(:params) { {
     'sg_NameOnCard' => 'John+Doe',
-    'sg_CardNumber' => '4444444444444444',
     'sg_ExpMonth' => '01',
     'sg_ExpYear' => '15',
     'sg_TransType' => 'Credit',
@@ -31,7 +30,6 @@ describe Safecharge::SgRequest do
 
   let(:sym_params) { {
       sg_NameOnCard: 'John+Doe',
-      sg_CardNumber: '4444444444444444',
       sg_ExpMonth: '01',
       sg_ExpYear: '15',
       sg_TransType: 'Credit',
@@ -51,6 +49,8 @@ describe Safecharge::SgRequest do
 
   let(:full_params) {
     params.merge({
+        'sg_CardNumber' => '4444444444444444',
+        'sg_CCToken' => 'Tokennnnnnnnnnnnnnnnnnnnnnnn',
         'sg_AuthCode' => 'AuthCode01',
         'sg_ClientUniqueID' => 'Txid1234567A',
         'sg_TransactionID' => 'OriginalTxid5678',
