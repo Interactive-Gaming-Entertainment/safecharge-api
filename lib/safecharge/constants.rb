@@ -4,18 +4,25 @@
 module Safecharge
   class Constants
     API_VERSION = '3.0.0'
+    SG_API_VERSION = '4.0.2'
 
     SERVER_TEST = ENV['SAFECHARGE_SERVER_TEST']                       # provided by SafeCharge
     SERVER_LIVE = ENV['SAFECHARGE_SERVER_LIVE']                       # provided by SafeCharge
-    
+
+    SG_SERVER_TEST = ENV['SAFECHARGE_SG_SERVER_TEST']                       # provided by SafeCharge
+    SG_SERVER_LIVE = ENV['SAFECHARGE_SG_SERVER_LIVE']                       # provided by SafeCharge
+    SG_RESPONSE_FORMAT = 4                                                  # XML
+    SG_DEFAULT_CREDIT_TYPE = 1                                              # Regular Credit
+
     SECRET_KEY = ENV['SAFECHARGE_SECRET_KEY']                         # provided by SafeCharge
     MERCHANT_ID =  ENV['SAFECHARGE_MERCHANT_ID'].to_i                 # provided by SafeCharge
     MERCHANT_SITE_ID = ENV['SAFECHARGE_MERCHANT_SITE_ID'].to_i        # provided by SafeCharge
     MERCHANT_3D_SITE_ID = ENV['SAFECHARGE_MERCHANT_3D_SITE_ID'].to_i  # provided by SafeCharge
-    
+
+    SG_CLIENT_LOGIN_ID = ENV['SAFECHARGE_SG_CLIENT_LOGIN_ID']         # provided by SafeCharge
     SG_CLIENT_PASSWORD = ENV['SAFECHARGE_SG_CLIENT_PASSWORD']         # provided by SafeCharge
     SG_3D_CLIENT_PASSWORD = ENV['SAFECHARGE_SG_3D_CLIENT_PASSWORD']   # provided by SafeCharge
-    
+
     CPANEL_PASSWORD = ENV['SAFECHARGE_CPANEL_PASSWORD']               # provided by SafeCharge
 
     APPROVED = 'APPROVED'

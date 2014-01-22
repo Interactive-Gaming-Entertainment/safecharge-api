@@ -143,6 +143,8 @@ module Safecharge
                 correct_type = p.is_a?(String) && ['true', 'false'].include?(p)
               when 'usertoken'
                 correct_type = p.is_a?(String) && ['register', 'auto'].include?(p)
+              when 'sgtranstype'
+                correct_type = p.is_a?(String) && ['Sale', 'Auth', 'Settle', 'Credit', 'AVSOnly', 'Void', 'Auth3D'].include?(p)
               when 'string'
                 correct_type = p.is_a? String
                 raise ValidationException, sprintf("Value '%s' in field '%s' is too long.", p, name) if p.size > meta[:length]
