@@ -7,7 +7,7 @@ require 'spec_helper'
 
 describe Safecharge do
   it "should be the right version" do
-    Safecharge::VERSION.should eq "0.1.6"
+    Safecharge::VERSION.should eq "0.1.7"
   end
 
   it "should have constants" do

@@ -5,6 +5,7 @@ require "safecharge/version"
 require "safecharge/constants"
 require "safecharge/request"
 require "safecharge/wc_request"
+require "safecharge/sg_request"
 require "safecharge/response"
 require "safecharge/dmn"
 
