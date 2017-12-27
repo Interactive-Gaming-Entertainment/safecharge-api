@@ -5,7 +5,7 @@ the SafeCharge Web Cashier API v1.1 (Revised 10 July 2013).
 
 ## Status
 
-This project is under active development right now, and may not suitable for use.
+This project is under active development right now, and may not be suitable for use.
 
 ## Installation
 
